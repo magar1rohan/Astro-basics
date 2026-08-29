@@ -1,11 +1,12 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayouts.astro";
 const pageTitle = "Tag Index";
-const allposts = import.meta.glob("../posts/*.md", { eager: true });
+const allPosts = await getCollection("blog");
 const tags = Array.from(
     new Set(
-        Object.values(allposts)
-            .map((post: any) => post.frontmatter.tags)
+        Object.values(allPosts)
+            .map((post: any) => post.data.tags)
             .flat(),
     ),
 );
